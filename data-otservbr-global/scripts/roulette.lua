@@ -24,7 +24,7 @@ local config = {
 	--runes are given as stackable items, even tho they have 'charges'
     prizePool = {
 		--100%
-        {itemId = 19082, count = {2, 4},   chance = 10000}, --gold raid token
+        {itemId = 19082, count = {1, 2},   chance = 10000}, --gold raid token
 		
 		--90%
         {itemId = 3155, count = {30, 100},   chance = 9000 }, --sudden death rune

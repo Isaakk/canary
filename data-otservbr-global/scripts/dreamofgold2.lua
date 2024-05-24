@@ -33,11 +33,11 @@ end
 
     -- TOP 1:
 	{ 🆔 = 'platinum coin', 🔝 = 1, 💸 = 60 },
-	{ 🆔 =  19082, 🔝 = 1, 💸 = 4 },
+	{ 🆔 =  19082, 🔝 = 1, 💸 = 2 },
 
     -- TOP 2:
 	{ 🆔 = 'platinum coin', 🔝 = 2, 💸 = 60 },
-	{ 🆔 =  19082, 🔝 = 2, 💸 = 2 },
+	{ 🆔 =  19082, 🔝 = 2, 💸 = 1 },
 
     -- TOP 3:
 	{ 🆔 = 'platinum coin', 🔝 = 3, 💸 = 60 }
@@ -536,7 +536,7 @@ end
                 until true end
 				local random_token = math.random(100)
 				if random_token > 80 then
-                    local free_token = Game.createItem(19082, 2)
+                    local free_token = Game.createItem(19082, 1)
                     if free_token then
                         rewardBag:addItemEx(free_token, FLAG_NOLIMIT)
 						rewardBag:setAttribute(ITEM_ATTRIBUTE_NAME, "Improved Reward")
