@@ -39,7 +39,7 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 				experienced = true
 			end
 			if player_to_check then
-				player_to_check:setStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward, 0)
+				player_to_check:setStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward, nil)
 			end
 		end
 
@@ -64,8 +64,6 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 			if creature and creature:isPlayer() then
 				creature:teleportTo(setting.playersPositions[i].toPos)
 				creature:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
-			else
-				return false
 			end
 		end
 		item:transform(2773)
