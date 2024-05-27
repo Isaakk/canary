@@ -38,7 +38,9 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Someone is so experienced for this!")
 				experienced = true
 			end
-			player_to_check:setStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward, 0)
+			if player_to_check then
+				player_to_check:setStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward, 0)
+			end
 		end
 
 		-- Checks if there are still players inside the room, if so, return true
