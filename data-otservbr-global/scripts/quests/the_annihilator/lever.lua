@@ -93,3 +93,15 @@ end
 
 lever:uid(30025)
 lever:register()
+
+local activate_hotkeys = MoveEvent()
+function activate_hotkeys.onStepIn(creature, item, position, fromPosition)
+	local player = creature:getPlayer()
+	if player then
+		player:setStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward, 1)
+		player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "You can now use hotkeys to use items.")
+	end
+	return true
+end
+activate_hotkeys:uid(65526)
+activate_hotkeys:register()
