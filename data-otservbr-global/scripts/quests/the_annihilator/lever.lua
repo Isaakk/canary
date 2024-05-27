@@ -22,8 +22,9 @@ local setting = {
 }
 
 local lever = Action()
-
+local experienced = false
 function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
+	experienced = false
 	if item.itemid == 2772 then
 		-- Checks if you have the 4 players and if they have the required level
 		for i = 1, #setting.playersPositions do
@@ -36,6 +37,11 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "All the players need to be level " .. setting.requiredLevel .. " or higher.")
 				return true
 			end
+			local player_to_check = creature:getPlayer()
+			if creature and creature:getLevel() > setting.requiredLevel * 1.5 or player_to_check:getStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward) == 1 then
+				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Someone is so experienced for this!")
+				experienced = true
+			end
 		end
 
 		-- Checks if there are still players inside the room, if so, return true
@@ -46,7 +52,11 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 
 		-- Create monsters
 		for i = 1, #setting.demonsPositions do
-			Game.createMonster("Angry Demon", setting.demonsPositions[i])
+			if experienced then
+				Game.createMonster("Very Angry Demon", setting.demonsPositions[i])
+			else
+				Game.createMonster("Angry Demon", setting.demonsPositions[i])
+			end
 		end
 
 		-- Get players from the tiles "playersPositions" and teleport to the demons room if all of the above requirements are met
