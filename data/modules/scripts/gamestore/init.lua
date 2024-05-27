@@ -180,11 +180,11 @@ GameStore.RecivedPackets = {
 }
 
 GameStore.ExpBoostValues = {
-	[1] = 30,
-	[2] = 45,
-	[3] = 90,
-	[4] = 180,
-	[5] = 360,
+	[1] = 250,
+	[2] = 250,
+	[3] = 250,
+	[4] = 250,
+	[5] = 250,
 }
 
 GameStore.DefaultValues = {
@@ -1746,8 +1746,8 @@ function GameStore.processExpBoostPurchase(player)
 	local currentXpBoostTime = player:getXpBoostTime()
 	local expBoostCount = player:getStorageValue(GameStore.Storages.expBoostCount)
 
-	player:setXpBoostPercent(50)
-	player:setXpBoostTime(currentXpBoostTime + 3600)
+	player:setXpBoostPercent(20)
+	player:setXpBoostTime(currentXpBoostTime + 36000)
 
 	if expBoostCount == -1 or expBoostCount == 6 then
 		expBoostCount = 1
