@@ -96,6 +96,25 @@ local soulCondition = Condition(CONDITION_SOUL, CONDITIONID_DEFAULT)
 soulCondition:setTicks(4 * 60 * 1000)
 soulCondition:setParameter(CONDITION_PARAM_SOULGAIN, 1)
 
+local function SendXPtoClient(player)
+
+	-- Send Client Exp Display
+	if configManager.getBoolean(configKeys.XP_DISPLAY_MODE) then
+		local baseRate = player:getFinalBaseRateExperience() * 100
+		if configManager.getBoolean(configKeys.VIP_SYSTEM_ENABLED) then
+			local vipBonusExp = configManager.getNumber(configKeys.VIP_BONUS_EXP)
+			if vipBonusExp > 0 and player:isVip() then
+				vipBonusExp = (vipBonusExp > 100 and 100) or vipBonusExp
+				baseRate = baseRate * (1 + (vipBonusExp / 100))
+				player:sendTextMessage(MESSAGE_BOOSTED_CREATURE, "Normal base xp is: " .. baseRate .. "%, because you are VIP, bonus of " .. vipBonusExp .. "%")
+			end
+		end
+
+		player:setBaseXpGain(baseRate)
+	end
+
+end
+
 local function useStamina(player, isStaminaEnabled)
 	if not player then
 		return false
@@ -118,8 +137,8 @@ local function useStamina(player, isStaminaEnabled)
 	end
 
 	if timePassed > 60 then
-		if staminaMinutes > 2 then
-			staminaMinutes = staminaMinutes - 2
+		if staminaMinutes > 1 then
+			staminaMinutes = staminaMinutes - 1
 		else
 			staminaMinutes = 0
 		end
@@ -130,6 +149,7 @@ local function useStamina(player, isStaminaEnabled)
 		_G.NextUseStaminaTime[playerId] = currentTime + 60
 		player:removePreyStamina(60)
 	end
+	SendXPtoClient(player)
 	if isStaminaEnabled then
 		player:setStamina(staminaMinutes)
 	end
@@ -588,14 +608,28 @@ function Player:onGainSkillTries(skill, tries)
 		return tries
 	end
 
+	--Check Stamina
+	local isStaminaEnabled = configManager.getBoolean(configKeys.STAMINA_SYSTEM)
+	local isStaminaActive = false
+	if isStaminaEnabled then
+		local staminaMinutes = self:getStamina()
+		if staminaMinutes > 2340 and self:isPremium() then
+			isStaminaActive = true
+			if skill ~= SKILL_MAGLEVEL then				
+				-- Stamina Bonus
+				local staminaBonusXp = 1
+				useStamina(self, isStaminaEnabled)
+				staminaBonusXp = self:getFinalBonusStamina()
+				self:setStaminaXpBoost(staminaBonusXp * 100)
+			end
+		end
+	end
+	
 	-- Event scheduler skill rate
 	local STAGES_DEFAULT = nil
-	if configManager.getBoolean(configKeys.RATE_USE_STAGES) then
-		STAGES_DEFAULT = skillsStages
-	end
-	local SKILL_DEFAULT = self:getSkillLevel(skill)
-	local RATE_DEFAULT = configManager.getNumber(configKeys.RATE_SKILL)
-
+	local SKILL_DEFAULT = nil
+	local RATE_DEFAULT = nil
+	local skillOrMagicRate = nil
 	if skill == SKILL_MAGLEVEL then
 		-- Magic Level
 		if configManager.getBoolean(configKeys.RATE_USE_STAGES) then
@@ -603,10 +637,19 @@ function Player:onGainSkillTries(skill, tries)
 		end
 		SKILL_DEFAULT = self:getBaseMagicLevel()
 		RATE_DEFAULT = configManager.getNumber(configKeys.RATE_MAGIC)
+		skillOrMagicRate = getRateFromTable(STAGES_DEFAULT, SKILL_DEFAULT, RATE_DEFAULT)
+		tries = tries * (isStaminaActive and 1.25 or 1)
+	else
+		if configManager.getBoolean(configKeys.RATE_USE_STAGES) then
+			STAGES_DEFAULT = skillsStages
+		end
+		SKILL_DEFAULT = self:getSkillLevel(skill)
+		local DistanceFactor = skill == SKILL_DISTANCE and 2 or 1
+		RATE_DEFAULT = configManager.getNumber(configKeys.RATE_SKILL)
+		skillOrMagicRate = getRateFromTable(STAGES_DEFAULT, SKILL_DEFAULT, RATE_DEFAULT) * DistanceFactor
+		tries = tries * (isStaminaActive and 1.5 or 1)
 	end
-
-	local skillOrMagicRate = getRateFromTable(STAGES_DEFAULT, SKILL_DEFAULT, RATE_DEFAULT)
-
+	
 	if SCHEDULE_SKILL_RATE ~= 100 then
 		skillOrMagicRate = math.max(0, (skillOrMagicRate * SCHEDULE_SKILL_RATE) / 100)
 	end
@@ -618,7 +661,7 @@ function Player:onGainSkillTries(skill, tries)
 			skillOrMagicRate = skillOrMagicRate + (skillOrMagicRate * (vipBoost / 100))
 		end
 	end
-
+	
 	return tries / 100 * (skillOrMagicRate * 100)
 end
 
