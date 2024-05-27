@@ -29,16 +29,12 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 		-- Checks if you have the 4 players and if they have the required level
 		for i = 1, #setting.playersPositions do
 			local creature = Tile(setting.playersPositions[i].fromPos):getTopCreature()
-			if not creature then
-				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Four players are required to start the quest.")
-				return true
-			end
 			if creature and creature:getLevel() < setting.requiredLevel then
 				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "All the players need to be level " .. setting.requiredLevel .. " or higher.")
 				return true
 			end
-			local player_to_check = creature:getPlayer()
-			if creature and creature:getLevel() > setting.requiredLevel * 1.5 or player_to_check:getStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward) == 1 then
+			local player_to_check = creature and creature:getPlayer()
+			if creature and creature:getLevel() > setting.requiredLevel * 1.5 or player_to_check and player_to_check:getStorageValue(Storage.Quest.U7_24.TheAnnihilator.Reward) == 1 then
 				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Someone is so experienced for this!")
 				experienced = true
 			end
