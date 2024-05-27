@@ -3829,8 +3829,8 @@ void Game::playerUseWithCreature(uint32_t playerId, const Position &fromPos, uin
 
 	bool isHotkey = (fromPos.x == 0xFFFF && fromPos.y == 0 && fromPos.z == 0);
 	if (!g_configManager().getBoolean(AIMBOT_HOTKEY_ENABLED, __FUNCTION__)) {
-		if (isHotkey) {
-			player->sendCancelMessage(RETURNVALUE_DIRECTPLAYERSHOOT);
+		if (isHotkey && player->getStorageValue(10102) != 1) {
+			player->sendCancelMessage("You cannot shoot to players by using a hotkey until you complete The Annihilator.");
 			return;
 		}
 	}
