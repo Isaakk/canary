@@ -1,8 +1,8 @@
-local mType = Game.createMonsterType("Angry Demon")
+local mType = Game.createMonsterType("Very Angry Demon")
 local monster = {}
 
-monster.description = "an angry demon"
-monster.experience = 80000
+monster.description = "a very angry demon"
+monster.experience = 1000
 monster.outfit = {
 	lookType = 35,
 	lookHead = 0,
@@ -13,8 +13,8 @@ monster.outfit = {
 	lookMount = 0,
 }
 
-monster.health = 15000
-monster.maxHealth = 15000
+monster.health = 17000
+monster.maxHealth = 17000
 monster.race = "fire"
 monster.corpse = 5995
 monster.speed = 128
@@ -26,7 +26,8 @@ monster.changeTarget = {
 }
 
 monster.strategiesTarget = {
-	nearest = 100,
+	damage = 99,
+	nearest = 1,
 }
 
 monster.flags = {
@@ -55,9 +56,9 @@ monster.light = {
 }
 
 monster.summon = {
-	maxSummons = 1,
+	maxSummons = 2,
 	summons = {
-		{ name = "fire elemental", chance = 10, interval = 2000, count = 1 },
+		{ name = "fire elemental", chance = 100, interval = 500, count = 1 },
 	},
 }
 
@@ -113,7 +114,7 @@ monster.attacks = {
 	{ name = "combat", interval = 2000, chance = 20, type = COMBAT_FIREDAMAGE, minDamage = -150, maxDamage = -250, range = 7, radius = 7, shootEffect = CONST_ANI_FIRE, effect = CONST_ME_FIREAREA, target = true },
 	{ name = "firefield", interval = 2000, chance = 10, range = 7, radius = 1, shootEffect = CONST_ANI_FIRE, target = true },
 	{ name = "combat", interval = 2000, chance = 10, type = COMBAT_LIFEDRAIN, minDamage = -300, maxDamage = -490, length = 8, spread = 0, effect = CONST_ME_PURPLEENERGY, target = false },
-	{ name = "combat", interval = 2000, chance = 10, type = COMBAT_ENERGYDAMAGE, minDamage = -210, maxDamage = -300, range = 1, shootEffect = CONST_ANI_ENERGY, target = true },
+	{ name = "combat", interval = 2000, chance = 10, type = COMBAT_ENERGYDAMAGE, minDamage = -400, maxDamage = -600, range = 1, shootEffect = CONST_ANI_ENERGY, target = true },
 	{ name = "speed", interval = 2000, chance = 15, speedChange = -700, radius = 1, effect = CONST_ME_MAGIC_RED, target = true, duration = 30000 },
 }
 
@@ -125,7 +126,7 @@ monster.defenses = {
 }
 
 monster.elements = {
-	{ type = COMBAT_PHYSICALDAMAGE, percent = 25 },
+	{ type = COMBAT_PHYSICALDAMAGE, percent = 33 },
 	{ type = COMBAT_ENERGYDAMAGE, percent = 50 },
 	{ type = COMBAT_EARTHDAMAGE, percent = 40 },
 	{ type = COMBAT_FIREDAMAGE, percent = 100 },
