@@ -2,7 +2,7 @@ local toolGear = Action()
 
 function toolGear.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 	if math.random(100) > 95 then
-		return onUseRope(player, item, fromPosition, target, toPosition, isHotkey)
+		local use_item = onUseRope(player, item, fromPosition, target, toPosition, isHotkey)
 			or onUseShovel(player, item, fromPosition, target, toPosition, isHotkey)
 			or onUsePick(player, item, fromPosition, target, toPosition, isHotkey)
 			or onUseMachete(player, item, fromPosition, target, toPosition, isHotkey)
@@ -10,6 +10,7 @@ function toolGear.onUse(player, item, fromPosition, target, toPosition, isHotkey
 			or onUseSpoon(player, item, fromPosition, target, toPosition, isHotkey)
 			or onUseScythe(player, item, fromPosition, target, toPosition, isHotkey)
 			or onUseKitchenKnife(player, item, fromPosition, target, toPosition, isHotkey)
+		return use_item
 	else
 		player:say("Oh no! Your tool is jammed and can't be used for a minute.", TALKTYPE_MONSTER_SAY)
 		player:addAchievementProgress("Bad Timing", 10)
