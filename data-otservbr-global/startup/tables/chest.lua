@@ -1517,6 +1517,7 @@ ChestUnique = {
 		reward = { { 3030, 6 } }, -- 6 small rubies
 		questName = "sixrubies",
 	},
+	--[[
 	-- Desert Quest
 	[6157] = {
 		useKV = true,
@@ -1534,6 +1535,7 @@ ChestUnique = {
 		reward = { { 3084, 250 }, { 3098, 1 }, { 3046, 1 }, { 3077, 1 } }, -- protection amulet, ring of healing, magic light wand and anhk
 		questName = "desert2",
 	},
+	]]--
 	-- Throwing Star Quest
 	[6159] = {
 		useKV = true,

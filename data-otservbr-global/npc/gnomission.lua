@@ -182,7 +182,7 @@ npcConfig.shop = {
 	{ itemName = "blue legs", clientId = 645, sell = 15000 },
 	{ itemName = "blue rose", clientId = 3659, sell = 250 },
 	{ itemName = "bright sword", clientId = 3295, sell = 6000 },
-	{ itemName = "ceremonial ankh", clientId = 6561, sell = 20000 },
+	{ itemName = "ceremonial ankh", clientId = 6561, sell = 200 },
 	{ itemName = "claw of 'the noxious spawn'", clientId = 9392, sell = 15000 },
 	{ itemName = "crystal wand", clientId = 3068, sell = 10000 },
 	{ itemName = "demon helmet", clientId = 3387, sell = 40000 },

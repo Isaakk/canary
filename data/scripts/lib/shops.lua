@@ -1282,7 +1282,7 @@ LootShopConfigTable = {
 		{ itemName = "broken iks cuirass", clientId = 40533, sell = 640 },
 		{ itemName = "brown crystal splinter", clientId = 16123, sell = 400 },
 		{ itemName = "brown giant shimmering pearl", clientId = 282, sell = 3000 },
-		{ itemName = "ceremonial ankh", clientId = 6561, sell = 20000 },
+		{ itemName = "ceremonial ankh", clientId = 6561, sell = 200 },
 		{ itemName = "cracked alabaster vase", clientId = 24385, sell = 180 },
 		{ itemName = "crown", clientId = 33935, sell = 2700 },
 		{ itemName = "cry-stal", clientId = 39394, sell = 3200 },

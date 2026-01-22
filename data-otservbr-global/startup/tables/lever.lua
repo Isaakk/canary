@@ -788,11 +788,13 @@ LeverUnique = {
 		itemId = 2772,
 		itemPos = { x = 32182, y = 32145, z = 11 },
 	},
+	--[[
 	-- Path: data-otservbr-global\scripts\actions\quests\desert_dungeon_quest\desert_dungeon_lever.lua
 	[30030] = {
 		itemId = 2772,
 		itemPos = { x = 32673, y = 32086, z = 8 },
 	},
+	]]--
 	-- Path: data-otservbr-global/scripts/actions/quests/the_outlaw_camp/oven.lua
 	[30031] = {
 		itemId = 2772,

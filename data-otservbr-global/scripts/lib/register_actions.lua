@@ -336,7 +336,7 @@ function onUseRope(player, item, fromPosition, target, toPosition, isHotkey)
 			local thing = tile:getTopVisibleThing()
 			if thing:isItem() and thing:getType():isMovable() then
 				return thing:moveTo(toPosition:moveUpstairs())
-			elseif thing:isCreature() and thing:isPlayer() then
+			elseif thing:isCreature() then
 				return thing:teleportTo(toPosition:moveUpstairs())
 			end
 		end

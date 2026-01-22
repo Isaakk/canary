@@ -602,7 +602,84 @@ function Player:onGainExperience(target, exp, rawExp)
 	return (exp * (1 + xpBoostPercent / 100 + lowLevelBonusExp / 100)) * staminaBonusXp * baseRateExp
 end
 
+--ankh of fallen
+local ANKH_OF_FALLEN = 6561
+local ANKH_OF_FALLEN_EXP_ATTR = 'LOST_EXP_ATTR'
+local ANKH_OF_FALLEN_BASE_EXP_PERCENT = 75
+
+local function formatNumberWithSpaces(number)
+    local formatted = tostring(number)
+    local left, right = formatted:match("^(%d+)(%.%d+)$")
+    if left then
+        left = left:reverse():gsub("(%d%d%d)", "%1 "):reverse():gsub("^ ", "")
+    else
+        left = formatted:reverse():gsub("(%d%d%d)", "%1 "):reverse():gsub("^ ", "")
+    end
+    if right then
+        return left .. right
+    else
+        return left
+    end
+end
+
+local function applyExpOnFallenSkull(pos, lostExp, bonusRecover)
+    local tile = Tile(pos)
+    if not tile then return false end
+ 
+    local corpse
+    local topItems = tile:getItems()
+    if topItems then
+        for _, it in ipairs(topItems) do
+            if it:isContainer() and isCorpse(it.uid) then
+                corpse = it
+                break
+            end
+        end
+    end
+    if not corpse then return false end
+
+    local skull
+    for i = 0, corpse:getSize() - 1 do
+        local it = corpse:getItem(i)
+        if it and it:getId() == ANKH_OF_FALLEN then
+            skull = it
+            break
+        end
+    end
+    if not skull then return false end
+
+    local lost = math.max(0, math.floor(tonumber(lostExp) or 0))
+    local percent = (math.max(0, math.min(100, tonumber(ANKH_OF_FALLEN_BASE_EXP_PERCENT) or 0)) + math.max(bonusRecover, 0))
+    local recover = math.floor(lost * percent / 100 + 0.5)
+
+    local baseDesc = ""
+    if skull.getAttribute then
+        baseDesc = skull:getAttribute("description") or ""
+    end
+    local sep = ""
+    if baseDesc ~= "" then
+        sep = baseDesc:match("[%.!?]$") and " " or ". "
+    end
+
+    local newDesc = string.format(
+        "%s%sLost %s experience points. Owner can retrieve %d%% (%s).",
+        baseDesc,
+        sep,
+        formatNumberWithSpaces(lost),
+        percent,                 
+        formatNumberWithSpaces(recover)
+    )
+
+    skull:setAttribute("description", newDesc)
+    skull:setCustomAttribute(ANKH_OF_FALLEN_EXP_ATTR, recover)
+    return true
+end
+Storage.AnkhOfFallenBonus = 65534
+--ankh of fallen end
+
 function Player:onLoseExperience(exp)
+	--ankh of fallen
+	applyExpOnFallenSkull(self:getPosition(), exp, self:getStorageValue(Storage.AnkhOfFallenBonus))
 	return exp
 end
 

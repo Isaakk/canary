@@ -178,7 +178,30 @@ end
 
 local playerDeath = CreatureEvent("PlayerDeath")
 
+--ankh of fallen
+local ANKH_OF_FALLEN = 6561
+local ANKH_OF_FALLEN_NAME_ATTR = 'OWNER_NAME_ATTR'
+
 function playerDeath.onDeath(player, corpse, killer, mostDamageKiller, unjustified, mostDamageUnjustified)
+	--ankh of fallen
+	local ankh
+    local playerName = player:getName()
+    if corpse and corpse:isContainer() then
+        ankh = Game.createItem(ANKH_OF_FALLEN, 1)
+        if ankh then
+            ankh:setAttribute("name", "Ankh of " .. playerName)
+            ankh:setCustomAttribute(ANKH_OF_FALLEN_NAME_ATTR, playerName)
+            corpse:addItemEx(ankh)
+        end
+    else
+        ankh = Game.createItem(ANKH_OF_FALLEN, 1, player:getPosition())
+        if ankh then
+            ankh:setAttribute("name", "Ankh of " .. playerName)
+            ankh:setCustomAttribute(ANKH_OF_FALLEN_NAME_ATTR, playerName)
+        end
+    end
+	--ankh of fallen end
+	
 	if not deathListEnabled then
 		return
 	end
@@ -205,6 +228,11 @@ function playerDeath.onDeath(player, corpse, killer, mostDamageKiller, unjustifi
 
 	Webhook.sendMessage(":skull_crossbones: " .. player:getMarkdownLink() .. " has died. Killed at level _" .. player:getLevel() .. "_ by **" .. killerName .. "**.", announcementChannels["player-kills"])
 	handleGuildWar(player, killer, mostDamageKiller, killerName, mostDamageName)
+	
+	--ankh of fallen
+	ankh:setAttribute("description",
+	string.format("Killed by %s at level %d.", killerName, player:getLevel()))
+	--ankh of fallen end
 end
 
 playerDeath:register()
