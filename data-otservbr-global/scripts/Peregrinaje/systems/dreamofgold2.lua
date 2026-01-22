@@ -29,18 +29,19 @@ end
 💛.REWARD_BAG_REMOVE_EFFECT = CONST_ME_CAKE
 💛.REWARDS = {
     -- Default:
-	{ 🆔 = 'platinum coin', 💸 = 30 },
+	{ 🆔 = 'platinum coin', 💸 = 100 },
 
     -- TOP 1:
-	{ 🆔 = 'platinum coin', 🔝 = 1, 💸 = 60 },
-	{ 🆔 =  19082, 🔝 = 1, 💸 = 2 },
+	{ 🆔 = 'platinum coin', 🔝 = 1, 💸 = 100 },
+	{ 🆔 =  19082, 🔝 = 1, 💸 = 3 },
 
     -- TOP 2:
-	{ 🆔 = 'platinum coin', 🔝 = 2, 💸 = 60 },
-	{ 🆔 =  19082, 🔝 = 2, 💸 = 1 },
+	{ 🆔 = 'platinum coin', 🔝 = 2, 💸 = 100 },
+	{ 🆔 =  19082, 🔝 = 2, 💸 = 2 },
 
     -- TOP 3:
-	{ 🆔 = 'platinum coin', 🔝 = 3, 💸 = 60 }
+	{ 🆔 = 'platinum coin', 🔝 = 3, 💸 = 100 },
+	{ 🆔 =  19082, 🔝 = 3, 💸 = 1 },
 }
 
 --[[
@@ -60,7 +61,7 @@ end
 -- ActionID used by [🚷 = true] score items
 💛.SCORE_ITEM_USABLE_ACTIONID = IMMOVABLE_ACTION_ID
 
-💛.SCORE_ITEM_UPDATE = 33 -- When there are 33% of score items on the map the map is refilled.
+💛.SCORE_ITEM_UPDATE = 43 -- When there are 33% of score items on the map the map is refilled.
 💛.PLAYER_SPEED = 75
 💛.JOIN_TIME = 15
 💛.WAIT_TIME = 80
