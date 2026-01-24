@@ -1110,6 +1110,9 @@
 		<attribute key="weight" value="50"/>
 	</item>
 	<item id="645" name="blue legs">
+		<attribute key="showattributes" value="1"/>
+		<attribute key="maxmanapointspercent" value="115"/>
+		<attribute key="description" value="They are a magic ( Increases max mana by 15% )"/>
 		<attribute key="primarytype" value="legs"/>
 		<attribute key="armor" value="8"/>
 		<attribute key="weight" value="1800"/>
