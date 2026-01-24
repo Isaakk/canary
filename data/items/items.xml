@@ -11241,8 +11241,8 @@
 	<item id="3567" article="a" name="blue robe">
 		<attribute key="primarytype" value="armors"/>
 		<attribute key="showattributes" value="1"/>
-		<attribute key="maxmanapointspercent" value="106"/>
-		<attribute key="description" value="It is a magic robe ( Increases max mana by 6% )"/>
+		<attribute key="maxmanapointspercent" value="115"/>
+		<attribute key="description" value="It is a magic robe ( Increases max mana by 15% )"/>
 		<attribute key="armor" value="11"/>
 		<attribute key="weight" value="2200"/>
 		<attribute key="imbuementslot" value="2">
