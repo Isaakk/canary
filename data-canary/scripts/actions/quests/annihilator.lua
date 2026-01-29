@@ -19,10 +19,10 @@ function annihilator.onUse(player, item, fromPosition, target, toPosition, isHot
 		for _, position in ipairs(playerPosition) do
 			local topPlayer = Tile(position):getTopCreature()
 			if not topPlayer or not topPlayer:isPlayer() or topPlayer:getLevel() < 100 or topPlayer:getStorageValue(Storage.Quest.ExampleQuest.Example) ~= -1 then
-				player:sendCancelMessage(RETURNVALUE_NOTPOSSIBLE)
-				return false
+
+			else
+				players[#players + 1] = topPlayer
 			end
-			players[#players + 1] = topPlayer
 		end
 
 		for i, targetPlayer in ipairs(players) do

@@ -29,8 +29,8 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 		for i = 1, #setting.playersPositions do
 			local creature = Tile(setting.playersPositions[i].fromPos):getTopCreature()
 			if not creature then
-				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Four players are required to start the quest.")
-				return true
+				--player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "Four players are required to start the quest.")
+				--return true
 			end
 			if creature and creature:getLevel() < setting.requiredLevel then
 				player:sendTextMessage(MESSAGE_EVENT_ADVANCE, "All the players need to be level " .. setting.requiredLevel .. " or higher.")
@@ -56,7 +56,7 @@ function lever.onUse(player, item, fromPosition, target, toPosition, isHotkey)
 				creature:teleportTo(setting.playersPositions[i].toPos)
 				creature:getPosition():sendMagicEffect(CONST_ME_TELEPORT)
 			else
-				return false
+				--return false
 			end
 		end
 		item:transform(2773)
